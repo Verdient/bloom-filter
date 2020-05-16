@@ -1,0 +1,26 @@
+{
+    "name": "verdient/bloom-filter",
+    "description": "Bloom filter for PHP",
+    "type": "library",
+    "keywords": ["bloom", "filter", "Bloom filter"],
+    "homepage": "https://github.com/Verdient/bloom-filter",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Verdient.",
+            "email": "fagui.zhu@foxmail.com",
+            "homepage": "https://github.com/Verdient"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/Verdient/bloom-filter/issues",
+        "source": "https://github.com/Verdient/bloom-filter"
+    },
+    "require": {
+        "php": ">=7.0.0",
+		"verdient/chorus": "0.0.6"
+    },
+    "autoload": {
+        "psr-4": {"Verdient\\BloomFilter\\": "src"}
+    }
+}

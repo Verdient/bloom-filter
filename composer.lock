@@ -1,0 +1,69 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "eb41d8286b2f68a36cf80398b0b5116d",
+    "packages": [
+        {
+            "name": "verdient/chorus",
+            "version": "0.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Verdient/chorus.git",
+                "reference": "e8beca0453a4072f9ed1e4c9ac36f0d1f17066fa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Verdient/chorus/zipball/e8beca0453a4072f9ed1e4c9ac36f0d1f17066fa",
+                "reference": "e8beca0453a4072f9ed1e4c9ac36f0d1f17066fa",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "php": ">=7.0.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "chorus\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Verdient.",
+                    "email": "fagui.zhu@foxmail.com",
+                    "homepage": "https://github.com/Verdient"
+                }
+            ],
+            "description": "Something basic but amazing",
+            "homepage": "https://github.com/Verdient/chorus",
+            "keywords": [
+                "base",
+                "basic",
+                "support"
+            ],
+            "time": "2020-04-09T10:52:04+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=7.0.0"
+    },
+    "platform-dev": []
+}
