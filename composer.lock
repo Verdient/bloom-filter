@@ -4,8 +4,57 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eb41d8286b2f68a36cf80398b0b5116d",
+    "content-hash": "5b4ce5c63c42d5124c31aab47e9d30b8",
     "packages": [
+        {
+            "name": "verdient/bitmap",
+            "version": "0.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Verdient/bitmap.git",
+                "reference": "938d9e13f3c08610e109719058f880bee0994700"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Verdient/bitmap/zipball/938d9e13f3c08610e109719058f880bee0994700",
+                "reference": "938d9e13f3c08610e109719058f880bee0994700",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "php": ">=7.0",
+                "verdient/chorus": "^0.0.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Verdient\\BitMap\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Verdient.",
+                    "email": "fagui.zhu@foxmail.com",
+                    "homepage": "https://github.com/Verdient"
+                }
+            ],
+            "description": "Bitmap for PHP",
+            "homepage": "https://github.com/Verdient/bitmap",
+            "keywords": [
+                "bit",
+                "bitmap"
+            ],
+            "time": "2020-05-18T09:42:37+00:00"
+        },
         {
             "name": "verdient/chorus",
             "version": "0.0.6",

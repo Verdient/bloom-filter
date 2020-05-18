@@ -1,6 +1,8 @@
 <?php
 namespace Verdient\BloomFilter;
 
+use Verdient\BitMap\BitMap;
+
 /**
  * 布隆过滤器
  * @author Verdient。
@@ -14,31 +16,31 @@ class BloomFilter extends \chorus\BaseObject
 	public $autoReset = false;
 
 	/**
+	 * @var float 误判率
+	 * @author Verdient。
+	 */
+	public $misjudgmentRate = 0.0001;
+
+	/**
 	 * @var int 集合大小
 	 * @author Verdient。
 	 */
-	public $setSize = 1000000;
+	public $setSize = false;
 
 	/**
 	 * @var int 哈希次数
 	 * @author Verdient。
 	 */
-	public $hashCount = 10;
+	public $hashCount = false;
 
 	/**
 	 * @var int 最大元素数量
 	 * @author Verdient。
 	 */
-	public $maxEntries = false;
+	public $maxEntries = 1000000;
 
 	/**
-	 * @var int 最大比率
-	 * @author Verdient。
-	 */
-	public $maxRate = false;
-
-	/**
-	 * @var array 集合
+	 * @var BitMap 集合
 	 * @author Verdient。
 	 */
 	protected $_set;
@@ -75,14 +77,11 @@ class BloomFilter extends \chorus\BaseObject
 			if(is_int($this->maxEntries) && $this->_count >= $this->maxEntries){
 				$this->reset();
 			}
-			if(is_int($this->maxRate) && $this->getRate() >= $this->maxRate){
-				$this->reset();
-			}
 		}
 		$this->_count ++;
 		foreach($this->_hashes as $hash){
 			$crc = $this->calculateCRC($hash->hash($this->serialize($value)));
-			$this->_set[$crc] = 1;
+			$this->_set->set($crc, 1);
 		}
 		return $this;
 	}
@@ -103,7 +102,13 @@ class BloomFilter extends \chorus\BaseObject
 	 * @author Verdient。
 	 */
 	public function reset(){
-		$this->_set = str_repeat('0', $this->setSize);
+		if(!$this->setSize){
+			$this->setSize = intval(-round(($this->maxEntries * log($this->misjudgmentRate)) / pow(log(2), 2)));
+		}
+		if(!$this->hashCount){
+			$this->hashCount = intval(round($this->setSize * log(2) / $this->maxEntries)) ?: 1;
+		}
+		$this->_set = new BitMap(['size' => $this->setSize]);
 		$this->_count = 0;
 		$this->_hashes = [];
 		for($i = 0; $i < $this->hashCount; $i++){
@@ -121,7 +126,7 @@ class BloomFilter extends \chorus\BaseObject
 	public function has($value){
 		foreach($this->_hashes as $hash){
 			$crc = $this->calculateCRC($hash->hash($this->serialize($value)));
-			if(!$this->_set[$crc]){
+			if(!$this->_set->get($crc)){
 				return false;
 			}
 		}
@@ -138,21 +143,12 @@ class BloomFilter extends \chorus\BaseObject
 	}
 
 	/**
-	 * 获取比率
-	 * @return float
-	 * @author Verdient。
-	 */
-	public function getRate(){
-		return substr_count($this->_set, 1) / $this->setSize * 100;
-	}
-
-	/**
 	 * 序列化
 	 * @param mixed $value 待序列化的值
 	 * @return string
 	 * @author Verdient。
 	 */
-	public function serialize($value){
+	protected function serialize($value){
 		return serialize($value);
 	}
 }
