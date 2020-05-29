@@ -18,7 +18,7 @@
     },
     "require": {
         "php": ">=7.0.0",
-		"verdient/chorus": "0.0.6",
+        "verdient/chorus": "0.0.6",
         "verdient/bitmap": "^0.0.1"
     },
     "autoload": {
