@@ -11,20 +11,23 @@ class Hash extends \chorus\BaseObject
 	* @var string 签名秘钥
 	* @author
 	*/
-	public $key;
+	protected $key = null;
 
 	/**
 	 * @var string 签名方法
 	 * @author Verdient。
 	 */
-	public $algo = 'SHA256';
+	protected $algo = 'SHA256';
 
 	/**
 	 * @inheritdoc
 	 * @author Verdient。
 	 */
 	public function init(){
-		$this->key = random_bytes(256);
+		parent::init();
+		if($this->key === null){
+			$this->key = random_bytes(256);
+		}
 	}
 
 	/**

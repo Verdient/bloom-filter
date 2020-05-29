@@ -35,12 +35,35 @@ $hashCount = false;
  */
 $maxEntries = 1000000;
 
+/**
+ * @var string|array 存储组件配置
+ * 可选Verdient\BloomFilter\BitMapStorage和Verdient\BloomFilter\RedisStorage
+ * 默认为BitMapStorage
+ * RedisStorage需配置参数，分别为
+ *  'host' => '127.0.0.1', // 默认为127.0.0.1
+ *  'password' => null, // 默认为null
+ *  'db' => 0, // 默认为0
+ *  'key' => null // 默认为null
+ * 若需持久化存储二进制向量，需指定key的值，否则每个新创建的BloomFilter
+ * 都是全新的过滤器，与以前的结果无关
+ * 数组写法为：
+ * $storage = [
+ *  'class' => 'Verdient\BloomFilter\RedisStorage',
+ *  'host' => '127.0.0.1',
+ *  'password' => null,
+ *  'db' => 0,
+ *  'key' => null
+ * ];
+ */
+$storage = 'Verdient\BloomFilter\BitMapStorage';
+
 $filter = new BloomFilter([
 	'autoReset' => $autoReset,
 	'misjudgmentRate' => $misjudgmentRate,
 	'setSize' => $setSize,
 	'hashCount ' => $hashCount,
-	'maxEntries' => $maxEntries
+	'maxEntries' => $maxEntries,
+	'storage' => $storage
 ]);
 ```
 ### 添加元素

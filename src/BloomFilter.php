@@ -1,7 +1,7 @@
 <?php
 namespace Verdient\BloomFilter;
 
-use Verdient\BitMap\BitMap;
+use chorus\ObjectHelper;
 
 /**
  * 布隆过滤器
@@ -13,37 +13,43 @@ class BloomFilter extends \chorus\BaseObject
 	 * @var bool 是否自动重置
 	 * @author Verdient。
 	 */
-	public $autoReset = false;
+	protected $autoReset = false;
 
 	/**
 	 * @var float 误判率
 	 * @author Verdient。
 	 */
-	public $misjudgmentRate = 0.0001;
+	protected $misjudgmentRate = 0.0001;
 
 	/**
 	 * @var int 集合大小
 	 * @author Verdient。
 	 */
-	public $setSize = false;
+	protected $setSize = false;
 
 	/**
 	 * @var int 哈希次数
 	 * @author Verdient。
 	 */
-	public $hashCount = false;
+	protected $hashCount = false;
 
 	/**
 	 * @var int 最大元素数量
 	 * @author Verdient。
 	 */
-	public $maxEntries = 1000000;
+	protected $maxEntries = 1000000;
 
 	/**
-	 * @var BitMap 集合
+	 * @var string|array 存储组件
 	 * @author Verdient。
 	 */
-	protected $_set;
+	protected $storage = 'Verdient\BloomFilter\BitMapStorage';
+
+	/**
+	 * @var StorageInterface 集合
+	 * @author Verdient。
+	 */
+	protected $_set = null;
 
 	/**
 	 * @var array 哈希集合
@@ -63,6 +69,7 @@ class BloomFilter extends \chorus\BaseObject
 	 */
 	public function init(){
 		parent::init();
+		$this->_set = ObjectHelper::create($this->storage);
 		$this->reset();
 	}
 
@@ -108,7 +115,7 @@ class BloomFilter extends \chorus\BaseObject
 		if(!$this->hashCount){
 			$this->hashCount = intval(round($this->setSize * log(2) / $this->maxEntries)) ?: 1;
 		}
-		$this->_set = new BitMap(['size' => $this->setSize]);
+		$this->_set->reset();
 		$this->_count = 0;
 		$this->_hashes = [];
 		for($i = 0; $i < $this->hashCount; $i++){
